@@ -31,6 +31,7 @@ print('')
 show(M^20*c3)
 ︡0cc3c8b7-cdca-43eb-9f7d-1509eb4b6920︡{"html":"<div align='center'>$\\displaystyle \\left(0.0600663699133213,\\,0.320277718494543,\\,0.312065432561874,\\,0.150875636622533,\\,0.156714842407729\\right)$</div>"}︡{"stdout":"\n"}︡{"html":"<div align='center'>$\\displaystyle \\left(0.0600623094685029,\\,0.320310511872500,\\,0.312021109757462,\\,0.150905365821005,\\,0.156700703080530\\right)$</div>"}︡{"stdout":"\n"}︡{"html":"<div align='center'>$\\displaystyle \\left(0.0600609724413616,\\,0.320321219785533,\\,0.312006633544671,\\,0.150915089329161,\\,0.156696084899274\\right)$</div>"}︡{"done":true}
 ︠ff536027-fa86-4e4d-a9ba-a83dceefdb25s︠
+
 # Scale the eigenvectors
 e1 = vector([1,16/3,400/77,5224/2079,1808/693])
 e2 = vector([1,-8.07105149690575,10.90886698829893,-7.317835960400462,3.480020469007279])
@@ -63,7 +64,24 @@ print['%.3f' % x for x in E1.normalized()]
 ︡02f93548-3f7d-4daf-ab53-f8ddafae4b2e︡{"stdout":"(2079/300615937*sqrt(300615937), 11088/300615937*sqrt(300615937), 10800/300615937*sqrt(300615937), 5224/300615937*sqrt(300615937), 5424/300615937*sqrt(300615937))\n"}︡{"stdout":"['0.120', '0.640', '0.623', '0.301', '0.313']\n"}︡{"done":true}
 
 
+###RESCALES OBTAINED EIGENVECTORS BY THE SUM OF ITS ENTRIES 
+#eigenvectors, based on eigenvectors_right() on M
+v1 = vector(SR, [1, 16/3, 400/77, 5224/2079, 1808/693])
+v2 = vector(SR, [1,-8.0711, 10.9089, -7.3178, 3.4800])
+v3 = vector(SR, [1,-2.9478,-0.3263,1.8892, 0.3849])
+v4 = vector(SR, [1,-0.1739,1.3378,0.3648,-2.5286])
+v5 = vector(SR, [1,0.8594,-0.8027,-0.8185,-0.2382])
 
+resc_eig = [] #will store rescaled eigenvectors
+
+def s(vec):  #finds the corresponding scale for each vector
+    return sum(l for l in vec)
+
+for vec in [v1,v2,v3,v4,v5]: #iterates and rescales each of the eigenvectors
+    resc_eig.append((vec/s(vec)).n(digits=2))
+
+print(resc_eig) #returns a list of rescaled eigenvectors 
+   
 
 
 
